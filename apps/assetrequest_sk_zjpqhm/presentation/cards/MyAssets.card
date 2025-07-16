@@ -1,0 +1,25 @@
+{
+"id": "MyAssets",
+"parameters": ["title", "subtitle", "icon", "indicatorLabel", "indicatorColor", "body"],
+"header": {
+"title": "<% title %>",
+"subtitle": "<% subtitle %>",
+"icon": "<% icon %>",
+"indicator": {
+  "label": "<% indicatorLabel %>",
+  "color": "<% indicatorColor %>"
+}
+},
+"body": {
+"type": "simpleCard",
+"value": "<% body %>"
+},
+"footer": [
+{
+  "label": "Create a Request",
+  "taskReference": {
+    "taskId": "AssetRequest"
+  }
+}
+]
+}

@@ -1,0 +1,65 @@
+{
+  "id": 1,
+  "name": "AssetReport",
+  "businessObject": "AssetRequest",
+  "defaultSecurityDomains": [
+    "AssetRequestSD"
+  ],
+  "sortConfigs": [],
+  "columns": [
+    {
+      "id": 1,
+      "name": "AssetRequest",
+      "order": "a",
+      "isSelfReferencing": true
+    },
+    {
+      "id": 2,
+      "name": "Request Id",
+      "order": "b",
+      "field": "requestId"
+    },
+    {
+      "id": 3,
+      "name": "Requested By",
+      "order": "c",
+      "field": "requestedBy"
+    },
+    {
+      "id": 4,
+      "name": "Asset Type",
+      "order": "d",
+      "field": "assetType"
+    },
+    {
+      "id": 5,
+      "name": "Justification",
+      "order": "e",
+      "field": "justification"
+    },
+    {
+      "id": 6,
+      "name": "Request Status",
+      "order": "f",
+      "field": "requestStatus"
+    },
+    {
+      "id": 7,
+      "name": "Approval Manager",
+      "order": "g",
+      "field": "approvalManager"
+    },
+    {
+      "id": 8,
+      "name": "It Approval",
+      "order": "h",
+      "field": "itApproval"
+    },
+    {
+      "id": 9,
+      "name": "Attachment",
+      "order": "i",
+      "field": "attachment"
+    }
+  ]
+}

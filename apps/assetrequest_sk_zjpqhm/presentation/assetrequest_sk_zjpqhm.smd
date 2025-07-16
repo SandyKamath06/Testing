@@ -1,0 +1,25 @@
+{
+  "id": "assetrequest_sk_zjpqhm",
+  "languages": [
+    {
+      "code": "en-US",
+      "description": "English"
+    },
+    {
+      "code": "fr-CA",
+      "description": "French"
+    }
+  ],
+  "siteAuth": {
+    "authTypes": [
+      {
+        "scheme": "SSO",
+        "id": "sso"
+      }
+    ]
+  },
+  "siteId": "assetrequest_sk_zjpqhm",
+  "cdnEnabled": true,
+  "siteProperties": [ ],
+  "applicationId": "assetrequest_sk_zjpqhm"
+}

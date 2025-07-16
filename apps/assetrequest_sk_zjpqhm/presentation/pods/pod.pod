@@ -1,0 +1,12 @@
+{
+  "podId": "pod",
+  "seed": {
+    "parameters": [
+      "time"
+    ],
+    "template": {
+      "type": "text",
+      "value": "@@time@@"
+    }
+  }
+}

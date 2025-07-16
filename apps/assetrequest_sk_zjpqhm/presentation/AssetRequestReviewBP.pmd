@@ -1,0 +1,49 @@
+{
+  "id": "AssetRequestReviewBP",
+  "endPoints": [ ],
+  "presentation": {
+    "title": {
+      "type": "title",
+      "label": "Action Page"
+    },
+    "body": {
+      "type": "section",
+      "horizontal": false,
+      "children": [
+        {
+          "type": "text",
+          "id": "hello",
+          "label": "Hello World!",
+          "value": "<% queryParams.eventStepId %>"
+        }
+      ]
+    },
+    "footer": {
+      "type": "footer",
+      "children": [
+        {
+          "type": "richText",
+          "enabled": "false",
+          "value": "Powered By Workday Extend"
+        }
+      ]
+    }
+  },
+  "outboundData": {
+    "outboundEndPoints": [
+      {
+        "name": "submitStep",
+        "baseUrlType": "WORKDAY-BP",
+        "url": "<% '/eventSteps/' + queryParams.eventStepId + '/submit' %>",
+        "httpMethod": "POST",
+        "authType": "sso",
+        "values": [
+          {
+            "outboundPath": "stepAction.id",
+            "value": "d9e4223e446c11de98360015c5e6daf6"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "id": "PracticeApproveBP",
+  "endPoints": [
+    {
+      "name": "event",
+      "baseUrlType": "WORKDAY-BP",
+      "url": "<% 'events/' + queryParams.eventId %>",
+      "authType": "sso"
+    },
+    {
+      "name": "survey",
+      "baseUrlType": "workday-app",
+      "url": "<% 'assetRequests/' + event['for'].id %>",
+      "authType": "sso"
+    }
+  ],
+  "presentation": {
+    "title": {
+      "type": "title",
+      "label": "Practice Approve"
+    },
+    "body": {
+      "type": "section",
+      "horizontal": false,
+      "children": [
+        {
+          "type": "text",
+          "id": "hello",
+          "label": "Hello World!",
+          "value": "<% json:asJSON(survey) %>"
+        },
+        {
+          "type": "text",
+          "id": "hello2",
+          "label": "Hello World!",
+          "value": "<% json:asJSON(queryParams.eventId) %>"
+        }
+      ]
+    },
+    "footer": {
+      "type": "footer",
+      "children": [
+        {
+          "type": "richText",
+          "enabled": "false",
+          "value": "Powered By Workday Extend"
+        }
+      ]
+    }
+  }
+}

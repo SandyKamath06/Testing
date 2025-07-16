@@ -1,0 +1,15 @@
+{
+  "podId": "BackToHome",
+  "seed": {
+    "template": {
+      "type": "button",
+      "label": "⤺ Back to Home",
+      "taskReference": {
+        "type": "taskReference",
+        "taskId": "MyAssets"
+      },
+      "action": "LINK",
+      "commandHttpMethod": "GET"
+    }
+  }
+}

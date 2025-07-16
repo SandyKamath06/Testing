@@ -1,0 +1,175 @@
+{
+  "id": "NewHireQuestionnaire_Approve",
+  "endPoints": [
+    {
+      "name": "getWorkers",
+      "httpMethod": "GET",
+      "authType": "sso",
+      "_generationNote": "For data types with a large quantity of instances, it may be required to apply filtering.",
+      "_generationNote2": "If there are more than 100 instances, consider using a search endpoint or another way for the user to filter the available selections.",
+      "url": "https://api.workday.com/common/v1/workers/me"
+    },
+    {
+      "name": "eventStep",
+      "baseUrlType": "WORKDAY-BP",
+      "url": "<% 'eventSteps/' + queryParams.eventStepId %>",
+      "authType": "sso",
+      "failOnStatusCodes": [
+        {
+          "code": 400
+        },
+        {
+          "code": 403
+        }
+      ]
+    },
+    {
+      "name": "event",
+      "baseUrlType": "WORKDAY-BP",
+      "url": "<% 'events/' + eventStep.event.id %>",
+      "authType": "sso",
+      "exclude": "<% empty(eventStep.event.id) %>",
+      "failOnStatusCodes": [
+        {
+          "code": 400
+        },
+        {
+          "code": 403
+        }
+      ]
+    },
+    {
+      "name": "savedEvents",
+      "baseUrlType": "WQL",
+      "url": "<% const query = 'SELECT eventTarget_01, questionnaireAnswersForEvent{questionBody, questionMultipleChoiceAnswer, cf_SK_Answers_DNU} as questionnaireAnswersForEvent FROM assetrequest_sk_zjpqhm_newHireQuestionnaireEvents WHERE eventTarget_01 IN ('+event.id+')';
+
+              console.info('savedEvents query is ' + query);
+
+              return 'data?query=' + query.urlEncode();
+
+    %>",
+      "authType": "sso"
+    },
+    {
+      "name": "survey",
+      "baseUrlType": "workday-app",
+      "url": "<% 'surveyData/' + event['for'].id %>",
+      "authType": "sso",
+      "exclude": "<% empty(event['for'].id) %>",
+      "failOnStatusCodes": [
+        {
+          "code": 400
+        },
+        {
+          "code": 403
+        }
+      ]
+    }
+  ],
+  "presentation": {
+    "title": {
+      "type": "title",
+      "label": "New Hire Survey"
+    },
+    "body": {
+      "type": "section",
+      "horizontal": false,
+      "children": [
+        {
+          "type": "readOnlyText",
+          "_label": "Questionnaire Data",
+          "_value": "<% json:asJSON(savedEvents) %>"
+        },
+        {
+          "doNotAdd": true,
+          "doNotRemove": true,
+          "type": "panelList",
+          "label": "Questionnaire Data",
+          "panelName": "data",
+          "panels": "<% savedEvents.data[0].questionnaireAnswersForEvent %>",
+          "children": [
+            {
+              "type": "readOnlyText",
+              "label": "<% data.questionBody %>",
+              "value": "<% data.cf_SK_Answers_DNU %>"
+            }
+          ]
+        },
+        {
+          "doNotAdd": true,
+          "doNotRemove": true,
+          "required": true,
+          "type": "panelList",
+          "label": "Enter Feedback Here",
+          "panelName": "data",
+          "panels": "<% ['data'] %>",
+          "children": [
+            {
+              "required": true,
+              "type": "text",
+              "value": "<% survey.feedback %>",
+              "placeholder": "Enter Feedback",
+              "valuesOut": [
+                {
+                  "value": "<% self.value %>",
+                  "valueOutBinding": "createQuestionnaireData.feedback"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "pageType": "EDIT"
+  },
+  "footer": {
+    "type": "footer",
+    "children": [
+      {
+        "type": "richText",
+        "enabled": "false",
+        "value": "Powered By Workday Extend"
+      }
+    ]
+  },
+  "pageType": "EDIT",
+  "outboundData": {
+    "outboundEndPoints": [
+      {
+        "_generationNote": "Creates a single instance, as specified by of the SurveyData business object resource.",
+        "name": "createQuestionnaireData",
+        "url": "<% `https://api.workday.com/apps/{{site.applicationId}}/v1/surveyData/{{event['for'].id}}` %>",
+        "authType": "sso",
+        "onSend": "<% console.info('Dummy'+json:asJSON(self.data)) ;
+        return self.data ;
+        %>",
+        "httpMethod": "PATCH",
+        "failOnStatusCodes": [
+          {
+            "code": 400
+          },
+          {
+            "code": 403
+          }
+        ]
+      },
+      {
+        "name": "submitStep",
+        "baseUrlType": "WORKDAY-BP",
+        "url": "<% 'eventSteps/' + queryParams.eventStepId + '/submit' %>",
+        "httpMethod": "POST",
+        "authType": "sso",
+        "values": [
+          {
+            "outboundPath": "stepAction.id",
+            "value": "<%'d9e4223e446c11de98360015c5e6daf6' %>"
+          }
+        ]
+      }
+    ],
+    "responseErrorDetail": {
+      "errorSummary": "<% error %>",
+      "errors": "<% empty errors ? [] : [error].join(errors.map(err => { err.error } )) %>"
+    }
+  }
+}

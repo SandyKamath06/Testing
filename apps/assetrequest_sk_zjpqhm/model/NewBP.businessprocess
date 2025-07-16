@@ -1,0 +1,34 @@
+{
+  "id": 1,
+  "name": "NewBP",
+  "label": "New B P",
+  "description": "Business Process Type for NewBP",
+  "useForOrchestrate": false,
+  "allowsCancel": true,
+  "actionSteps": [
+    {
+      "id": 1,
+      "name": "AssetRequestReview",
+      "label": "AssetRequestReview",
+      "pageRoute": "/AssetRequestReviewBP/{eventStepId}"
+    }
+  ],
+  "targetBusinessObject": "AssetRequest",
+  "details": {
+    "pageRoute": "/BPDetailes/{eventId}"
+  },
+  "securityDomains": [
+    "AssetRequestSD"
+  ],
+  "approvalStep": {
+    "pageRoute": "/approve/{eventId}",
+    "actions": [
+      "APPROVE",
+      "DENY",
+      "SEND_BACK"
+    ]
+  },
+  "revisePageRoute": "/sendBack/{eventStepId}",
+  "allowsManualSendBack": true,
+  "allowsRescind": true
+}

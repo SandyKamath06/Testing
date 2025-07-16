@@ -1,0 +1,9 @@
+{
+  "id": 1,
+  "name": "MyAssets",
+  "label": "My Assets",
+  "securityDomains": [
+    "AssetRequestSD"
+  ],
+  "routePath": "/"
+}
