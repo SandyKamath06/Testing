@@ -13,7 +13,7 @@
         {
           "type": "text",
           "id": "hello",
-          "label": "Hello World!",
+          "label": "Approve Test",
           "value": "Welcome from Workday!"
         }
       ]
