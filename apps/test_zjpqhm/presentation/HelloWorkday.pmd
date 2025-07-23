@@ -1,10 +1,12 @@
 {
-  "id": "submitPage",
-  "endPoints": [ ],
+  "id": "HelloWorkday",
+  "endPoints": [
+  ],
   "presentation": {
+    "headerSize": "VPS_DEFAULT",
     "title": {
       "type": "title",
-      "label": "Submit Page"
+      "label": "Workday Extend"
     },
     "body": {
       "type": "section",
@@ -14,7 +16,7 @@
           "type": "text",
           "id": "hello",
           "label": "Hello World!",
-          "value": "<% json:asJSON(flowVariables) %>"
+          "value": "Welcome from Workday!"
         }
       ]
     },
